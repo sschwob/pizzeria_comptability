@@ -1,0 +1,7 @@
+<tr>
+  <th><%= pizzeria["name"] %></th>
+  <% pizzeria[:balance_sheets].each do |balance_sheet| %>
+    <td><%= balance_sheet["turnover"] %> €</td>
+  <% end %>
+  <td style="color: <%= turnover_color(pizzeria[:annual_turnover], average) %>;"><%= pizzeria[:annual_turnover] %> €</td>
+</tr>

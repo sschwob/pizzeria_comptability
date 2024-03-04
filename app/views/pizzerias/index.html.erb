@@ -1,0 +1,15 @@
+<div id="container">
+  <h1>Chiffre d'affaire</h1>
+
+  <%= @pizzerias_with_balance_sheets.count %> pizzerias trouvées
+
+  <table>
+    <%= render "table_header" %>
+
+    <%= render "table_body", pizzerias: @pizzerias_with_balance_sheets, average: @average_turnover %>
+  </table>
+
+  <div id="average_turnover">
+    <p>CA moyen : <%= @average_turnover %> €</p>
+  </div>
+</div>
