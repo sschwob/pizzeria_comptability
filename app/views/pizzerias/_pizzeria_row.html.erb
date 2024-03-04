@@ -1,5 +1,5 @@
 <tr>
-  <th><%= pizzeria["name"] %></th>
+  <th><%= pizzeria[:name] %></th>
   <% pizzeria[:balance_sheets].each do |balance_sheet| %>
     <td><%= balance_sheet["turnover"] %> €</td>
   <% end %>

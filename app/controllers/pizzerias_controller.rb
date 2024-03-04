@@ -1,13 +1,19 @@
 class PizzeriasController < ApplicationController
   def index
-    pizzerias = Pizzerium.all.includes(:balance_sheets)
-    @pizzerias_with_balance_sheets = pizzerias.map do |pizzeria|
-      pizzeria.attributes.merge(
-        'balance_sheets': pizzeria.balance_sheets,
-        'annual_turnover': TurnoverComputeService.annual_turnover(pizzeria.balance_sheets)
-      )
-    end
+    date = Date.new(2024)
 
-    @average_turnover = TurnoverComputeService.average_turnover(@pizzerias_with_balance_sheets)
+    pizzerias = BalanceSheet.includes(:restaurant)
+                            .where(month: date.beginning_of_year..date.end_of_year)
+                            .group_by(&:restaurant)
+  
+    @pizzerias = pizzerias.map do |pizzeria|
+      {
+        name: pizzeria.first.name,
+        balance_sheets: pizzeria.last,
+        annual_turnover: TurnoverComputeService.annual_turnover(pizzeria.last)
+      }
+    end.sort_by { |pizzeria| pizzeria[:annual_turnover] }
+
+    @average_turnover = TurnoverComputeService.average_turnover(@pizzerias)
   end
 end
