@@ -1,7 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Cleaning
+Restaurant.destroy_all
+
+pizzerias = ["Dominos", "Pizza Zio", "Caldo Pizza Wasquehal", "Papa Rafaele", "Pizza Hut", "Don Corneo Pizza", "Pizza Paï"]
+
+pizzerias.each do |pizzeria_name|
+  pizzeria = Restaurant.create!(name: pizzeria_name)
+  
+  (2020..2023).each do |year|
+    (1..12).each do |month|
+      date = Date.new(year, month)
+      BalanceSheet.create!(
+        month:  date,
+        restaurant: pizzeria,
+        turnover: rand(50.0..300.0).round(2)
+      )
+    end
+  end
+
+  # Année en cours : uniquement les mois de janvier et février
+  (1..2).each do |month|
+    date = Date.new(2024, month)
+    BalanceSheet.create!(
+      month:  date,
+      restaurant: pizzeria,
+      turnover: rand(50.0..300.0).round(2)
+    )
+  end
+end

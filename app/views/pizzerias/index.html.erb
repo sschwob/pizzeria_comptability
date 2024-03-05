@@ -1,0 +1,21 @@
+<div id="container">
+  <h1>Chiffre d'affaire</h1>
+
+  <%= form_tag(root_path, method: "get") do %>
+    <%= label_tag(:year, "Année :") %>
+    <%= select_tag(:year, options_for_select(BalanceSheet::YEARS, @selected_year)) %>
+    <%= submit_tag("OK") %>
+  <% end %>
+
+  <p><%= @pizzerias.count %> pizzerias trouvées</p>
+
+  <table>
+    <%= render "table_header" %>
+
+    <%= render "table_body", pizzerias: @pizzerias, average: @average_turnover %>
+  </table>
+
+  <div id="average_turnover">
+    <p>CA moyen : <%= @average_turnover %> €</p>
+  </div>
+</div>
