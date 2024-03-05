@@ -1,14 +1,8 @@
 <tr>
   <th><%= pizzeria[:name] %></th>
-
-  <% pizzeria[:balance_sheets].each do |balance_sheet| %>
-    <td><%= balance_sheet["turnover"] %> €</td>
-  <% end %>
-
-  <% if pizzeria[:balance_sheets].count < 12 %>
-    <% (12 - pizzeria[:balance_sheets].count).times do %>
-      <td>...</td>
-    <% end %>
+  <%# Permet de gérer les cas de l'année en cours ou s'il manque des bilans en milieu d'une année %>
+  <% 12.times do |current_month| %>
+    <td><%= pizzeria[:balance_sheets].find { |balance_sheet| balance_sheet.month.month == current_month + 1 }&.turnover %> €</td>
   <% end %>
   
   <td style="color: <%= turnover_color(pizzeria[:annual_turnover], average) %>;"><%= pizzeria[:annual_turnover] %> €</td>

@@ -1,6 +1,6 @@
 class PizzeriasController < ApplicationController
   def index
-    @selected_year = params[:year].present? ? params[:year].to_i : 2024
+    @selected_year = params[:year].present? ? params[:year].to_i : 2024 # Année en cours par défaut
     date = Date.new(@selected_year)
 
     balance_sheets = BalanceSheet.includes(:restaurant).where(month: date.beginning_of_year..date.end_of_year)
@@ -12,7 +12,7 @@ class PizzeriasController < ApplicationController
       @pizzerias << {
         id: annual_turnover[0].id,
         name: annual_turnover[0].name,
-        balance_sheets: grouped_balance_sheets[annual_turnover[0]],
+        balance_sheets: grouped_balance_sheets[annual_turnover[0]].sort_by(&:month),
         annual_turnover: annual_turnover[1]
       }
     end

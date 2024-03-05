@@ -17,7 +17,8 @@ pizzerias.each do |pizzeria_name|
     end
   end
 
-  (1..3).each do |month|
+  # Année en cours : uniquement les mois de janvier et février
+  (1..2).each do |month|
     date = Date.new(2024, month)
     BalanceSheet.create!(
       month:  date,
