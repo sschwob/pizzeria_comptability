@@ -1,14 +1,11 @@
 <div id="container">
   <h1>Chiffre d'affaire</h1>
 
-  <div>
-    Année : 
-    <select id="year_select" name="year">
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024" selected >2024</option>
-    </select>
-  </div>
+  <%= form_tag(root_path, method: "get") do %>
+    <%= label_tag(:year, "Année :") %>
+    <%= select_tag(:year, options_for_select(BalanceSheet::YEARS, @selected_year)) %>
+    <%= submit_tag("OK") %>
+  <% end %>
 
   <p><%= @pizzerias.count %> pizzerias trouvées</p>
 

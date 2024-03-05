@@ -11,11 +11,3 @@ import Turbolinks from "turbolinks"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-document.addEventListener('turbolinks:load', () => {
-  $(document).ready(function(){
-    $('#year_select').on('change', (event) => {
-      console.log(event.currentTarget);
-    });
-  });
-});
